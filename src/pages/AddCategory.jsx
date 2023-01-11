@@ -28,6 +28,9 @@ function AddCategory() {
   const handleTextChange = (e) => {
     SetNewCategory(e.target.value);
   };
+  const handleTextChangeNumber = (e) => {
+    setNumber(e.target.value);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newCategory.length === 0) {
@@ -62,7 +65,7 @@ function AddCategory() {
             </div>
             <div className="input-group">
               <input
-                onChange={handleTextChange}
+                onChange={handleTextChangeNumber}
                 type="text"
                 placeholder="Mobile No."
                 value={number}
