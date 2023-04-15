@@ -1,51 +1,65 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  query,
+  setDoc,
+} from "firebase/firestore";
+import db from "../Firebase";
 
 function AddCategory() {
-  const [categories, setCategories] = useState([]);
   const [message, SetMessage] = useState("");
-  const [newCategory, SetNewCategory] = useState("");
+  const [data, setData] = useState([]);
+  const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
-  // useEffect(() => {
-  //   const getCategories = async (newCat) => {
-  //     const q = query(collection(db, "categories"));
-  //     const querySnapshot = await getDocs(q);
-  //     querySnapshot.forEach((doc) => {
-  //       categories.push(doc.id);
-  //       console.log(doc.id, " => ", doc.data());
-  //     });
-  //   };
-  //   getCategories();
-  // }, []);
+  const getData = async () => {
+    const add = [];
+    const q = query(collection(db, "data"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      add.push([doc.id, doc.data()]);
+    });
+    return add;
+  };
 
-  // const addCategory = async (newCat) => {
-  //   const citiesRef = collection(db, "categories");
-  //   await setDoc(doc(citiesRef, newCategory), {});
-  //   console.log("donee");
-  // };
+  const addCategory = async (newCat) => {
+    const docName = Date.now();
+    var stringDoc = "" + docName;
+    const userRef = doc(db, "data", stringDoc);
+    const userData = {
+      name: name,
+      number: number,
+    };
+
+    setDoc(userRef, userData)
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+    console.log("donee");
+  };
 
   const handleTextChange = (e) => {
-    SetNewCategory(e.target.value);
+    setName(e.target.value);
   };
   const handleTextChangeNumber = (e) => {
     setNumber(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newCategory.length === 0) {
-      SetMessage("Please enter a valid Category");
-    } else {
-      if (categories.includes(newCategory)) {
-        SetMessage("Category already present");
-      } else {
-        SetMessage("");
-        setCategories([newCategory, ...categories]);
-        // addCategory();
-      }
-      console.log("categories", [categories]);
-      SetNewCategory("");
-    }
+    // addCategory();
+    getData();
+
+    setName("");
+    setNumber("");
   };
 
   return (
@@ -60,13 +74,13 @@ function AddCategory() {
                 onChange={handleTextChange}
                 type="text"
                 placeholder="Name"
-                value={newCategory}
+                value={name}
               />
             </div>
             <div className="input-group">
               <input
                 onChange={handleTextChangeNumber}
-                type="text"
+                type="number"
                 placeholder="Mobile No."
                 value={number}
               />
