@@ -10,7 +10,7 @@ function App() {
     <>
       {/* <p>aaaa</p> */}
       <Header />
-      <Data />
+      <AddCategory />
     </>
   );
 }
