@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import {
   collection,
@@ -12,21 +12,8 @@ import db from "../Firebase";
 
 function AddCategory() {
   const [message, SetMessage] = useState("");
-  const [data, setData] = useState([]);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-
-  const getData = async () => {
-    const add = [];
-    const q = query(collection(db, "data"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      add.push([doc.id, doc.data()]);
-    });
-    return add;
-  };
 
   const addCategory = async (newCat) => {
     const docName = Date.now();
@@ -38,13 +25,10 @@ function AddCategory() {
     };
 
     setDoc(userRef, userData)
-      .then(() => {
-        console.log("Document successfully written!");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
-    console.log("donee");
   };
 
   const handleTextChange = (e) => {
@@ -55,9 +39,7 @@ function AddCategory() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // addCategory();
-    getData();
-
+    addCategory();
     setName("");
     setNumber("");
   };
