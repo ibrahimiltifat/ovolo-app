@@ -67,7 +67,6 @@ function AddCategory() {
                 value={number}
                 inputMode="numeric"
                 pattern="[0-9]*"
-                // inputProps={{ inputMode: "numeric" }}
               />
             </div>
             <div className="text-center">

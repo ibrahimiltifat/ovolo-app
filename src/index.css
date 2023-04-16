@@ -196,9 +196,14 @@ input:focus {
 .btn-primary {
   background-color: #000;
 }
+.btn-tertiary {
+  width: 80%;
+  background-color: #000;
+}
 
 .btn-secondary {
-  background: #ff6a95;
+  width: 80%;
+  background-color: darkred;
 }
 
 .btn:hover {

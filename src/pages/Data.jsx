@@ -59,9 +59,23 @@ function MyComponent() {
 
   return (
     <>
-      <p>aaaa</p>
-      <button onClick={() => getData()}>Download Excel</button>
-      <button onClick={() => deleteCollection()}>Delete data</button>
+      <div className="container">
+        <div className="card">
+          <div className="text-center">
+            <button className="btn btn-tertiary" onClick={() => getData()}>
+              Download Excel
+            </button>
+          </div>
+          <div className="text-center">
+            <button
+              className="btn btn-secondary"
+              onClick={() => deleteCollection()}
+            >
+              Delete data
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
