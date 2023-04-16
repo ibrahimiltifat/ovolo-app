@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import * as XLSX from "xlsx";
 import AddCategory from "./AddCategory";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query, deleteDoc } from "firebase/firestore";
 import db from "../Firebase";
 
 function MyComponent() {
+  async function deleteCollection() {
+    const collectionRef = collection(db, "data");
+    const querySnapshot = await getDocs(collectionRef);
+
+    querySnapshot.forEach((doc) => {
+      deleteDoc(doc.ref);
+    });
+  }
+
   const getData = async () => {
     const add = [];
     const q = query(collection(db, "data"));
@@ -52,6 +61,7 @@ function MyComponent() {
     <>
       <p>aaaa</p>
       <button onClick={() => getData()}>Download Excel</button>
+      <button onClick={() => deleteCollection()}>Delete data</button>
     </>
   );
 }
