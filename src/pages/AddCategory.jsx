@@ -65,7 +65,9 @@ function AddCategory() {
                 type="number"
                 placeholder="Mobile No."
                 value={number}
-                inputProps={{ inputMode: "numeric" }}
+                inputMode="numeric"
+                pattern="[0-9]*"
+                // inputProps={{ inputMode: "numeric" }}
               />
             </div>
             <div className="text-center">
