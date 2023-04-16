@@ -63,7 +63,7 @@ function MyComponent() {
         <div className="card">
           <div className="text-center">
             <button className="btn btn-tertiary" onClick={() => getData()}>
-              Download Excell
+              Download Excel
             </button>
           </div>
           <div className="text-center">
